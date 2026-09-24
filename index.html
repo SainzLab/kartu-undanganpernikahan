@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Undangan Pernikahan - Nama & Nama</title>
+    
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        script: ['"Great Vibes"', 'cursive'],
+                        serif: ['"Playfair Display"', 'serif'],
+                        sans: ['"Poppins"', 'sans-serif'],
+                    },
+                    colors: {
+                        wedding: {
+                            light: '#FAFAFA',
+                            gold: '#C5A880',
+                            dark: '#2C3E50',
+                            blush: '#F3C5C5',
+                            text: '#4A4A4A'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        .hero-bg {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1519225421980-715cb0215aed?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+        
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .fade-in {
+            animation: fadeIn 1.5s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .arch-img {
+            border-radius: 150px 150px 10px 10px;
+            object-fit: cover;
+        }
+    </style>
+</head>
+<body class="bg-wedding-light text-wedding-text font-sans antialiased selection:bg-wedding-blush selection:text-white">
+
+<div id="app">
+    <header class="hero-bg min-h-screen flex flex-col justify-center items-center text-white text-center p-4 fade-in">
+        <p class="text-xs md:text-sm tracking-[0.4em] uppercase mb-4 font-sans font-light">The Wedding Of</p>
+        
+        <h1 class="font-script text-7xl md:text-8xl lg:text-9xl mb-4 text-wedding-blush" style="text-shadow: 2px 2px 8px rgba(0,0,0,0.3);">
+            Nama & Nama
+        </h1>
+        
+        <p class="font-serif text-lg md:text-xl italic mb-12 font-light">Minggu, 20 Desember 2026</p>
+      
+        <div class="glass-panel rounded-3xl py-6 px-8 md:px-12 flex gap-6 md:gap-10 font-serif text-center mt-4 shadow-lg">
+            <div>
+                <div class="text-3xl md:text-4xl font-semibold">{{ days }}</div>
+                <div class="text-[10px] md:text-xs uppercase tracking-widest mt-2 font-sans">Hari</div>
+            </div>
+            <div>
+                <div class="text-3xl md:text-4xl font-semibold">{{ hours }}</div>
+                <div class="text-[10px] md:text-xs uppercase tracking-widest mt-2 font-sans">Jam</div>
+            </div>
+            <div>
+                <div class="text-3xl md:text-4xl font-semibold">{{ minutes }}</div>
+                <div class="text-[10px] md:text-xs uppercase tracking-widest mt-2 font-sans">Menit</div>
+            </div>
+            <div>
+                <div class="text-3xl md:text-4xl font-semibold">{{ seconds }}</div>
+                <div class="text-[10px] md:text-xs uppercase tracking-widest mt-2 font-sans">Detik</div>
+            </div>
+        </div>
+    </header>
+
+    <section class="py-24 px-6 max-w-3xl mx-auto text-center flex flex-col items-center">
+        <div class="w-10 h-10 border-b-2 border-wedding-gold mb-10"></div>
+        <p class="font-serif text-lg md:text-2xl leading-loose italic text-gray-600">
+            "Dan di antara tanda-tanda kekuasaan-Nya ialah Dia menciptakan untukmu isteri-isteri dari jenismu sendiri, supaya kamu cenderung dan merasa tenteram kepadanya, dan dijadikan-Nya diantaramu rasa kasih dan sayang."
+        </p>
+        <p class="mt-6 font-sans text-sm tracking-widest uppercase text-wedding-gold">(QS. Ar-Rum: 21)</p>
+    </section>
+
+    <section class="py-20 px-4 bg-white">
+        <div class="max-w-5xl mx-auto text-center">
+            
+            <h2 class="font-sans text-xs tracking-[0.3em] uppercase text-gray-400 mb-12">Mempelai</h2>
+            
+            <div class="flex flex-col items-center">
+
+                <div class="relative p-2 border-2 border-wedding-gold rounded-t-[160px] rounded-b-2xl mb-12 bg-white">
+                    <img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+                         alt="Foto Pasangan" 
+                         class="w-64 h-80 md:w-80 md:h-[400px] arch-img shadow-xl">
+                </div>
+
+                <div class="grid md:grid-cols-3 gap-8 items-center w-full max-w-3xl">
+                    <div class="text-center md:text-right">
+                        <h3 class="font-script text-5xl text-wedding-dark mb-2">Nama</h3>
+                        <p class="font-sans text-sm text-gray-500 font-bold">Nama Putra, S.T.</p>
+                        <p class="font-sans text-xs text-gray-400 mt-2">Putra dari<br>Bapak & Ibu</p>
+                    </div>
+
+                    <div class="text-4xl font-script text-wedding-gold opacity-60 my-4 md:my-0">
+                        &
+                    </div>
+
+                    <div class="text-center md:text-left">
+                        <h3 class="font-script text-5xl text-wedding-dark mb-2">Nama</h3>
+                        <p class="font-sans text-sm text-gray-500 font-bold">Nama Putri, S.I.Kom.</p>
+                        <p class="font-sans text-xs text-gray-400 mt-2">Putri dari<br>Bapak & Ibu</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-24 px-4 bg-wedding-light">
+        <div class="max-w-4xl mx-auto">
+            <h2 class="font-sans text-xs tracking-[0.3em] uppercase text-gray-400 mb-16 text-center">Rangkaian Acara</h2>
+            
+            <div class="grid md:grid-cols-2 gap-12">
+                <div class="bg-white p-12 rounded-2xl text-center shadow-[0_10px_40px_-15px_rgba(0,0,0,0.05)] border border-gray-50 hover:-translate-y-1 transition-transform duration-300">
+                    <h3 class="font-serif text-2xl mb-2 text-wedding-dark">Akad Nikah</h3>
+                    <div class="w-8 h-[1px] bg-wedding-gold mx-auto mb-6"></div>
+                    <p class="font-sans text-sm text-gray-500 mb-1">Minggu, 20 Desember 2026</p>
+                    <p class="font-serif text-lg text-wedding-gold mb-6">Pukul 08.00 WIB</p>
+                    <div class="font-sans text-sm text-gray-500 leading-relaxed">
+                        <p class="font-semibold text-gray-700">Masjid Al-Akbar</p>
+                        <p>Jl. Pagesangan Raya No.1<br>Surabaya</p>
+                    </div>
+                </div>
+
+                <div class="bg-white p-12 rounded-2xl text-center shadow-[0_10px_40px_-15px_rgba(0,0,0,0.05)] border border-gray-50 hover:-translate-y-1 transition-transform duration-300">
+                    <h3 class="font-serif text-2xl mb-2 text-wedding-dark">Resepsi</h3>
+                    <div class="w-8 h-[1px] bg-wedding-gold mx-auto mb-6"></div>
+                    <p class="font-sans text-sm text-gray-500 mb-1">Minggu, 20 Desember 2026</p>
+                    <p class="font-serif text-lg text-wedding-gold mb-6">Pukul 11.00 - 14.00 WIB</p>
+                    <div class="font-sans text-sm text-gray-500 leading-relaxed">
+                        <p class="font-semibold text-gray-700">Grand Ballroom Hotel Nusantara</p>
+                        <p>Jl. Jenderal Sudirman No.99<br>Surabaya</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Peta Lokasi & Tombol Maps -->
+            <div class="mt-16 max-w-3xl mx-auto">
+                
+                <!-- Tampilan Peta Interaktif (Embed Google Maps) -->
+                <div class="p-2 bg-white rounded-3xl shadow-[0_10px_40px_-15px_rgba(0,0,0,0.1)] border border-gray-100 mb-8 transform hover:-translate-y-1 transition-transform duration-300">
+                    <div class="w-full h-64 md:h-[400px] rounded-2xl overflow-hidden relative bg-gray-100">
+                        <!-- Ganti parameter 'src' di bawah ini dengan link embed Google Maps lokasi asli Anda -->
+                        <iframe 
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3957.348658197793!2d112.71261311477526!3d-7.336040894705574!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dd7ebf272a85eef%3A0x67399882205513ab!2sMasjid%20Nasional%20Al%20Akbar%20Surabaya!5e0!3m2!1sid!2sid!4v1700000000000!5m2!1sid!2sid" 
+                            width="100%" 
+                            height="100%" 
+                            style="border:0;" 
+                            allowfullscreen="" 
+                            loading="lazy" 
+                            referrerpolicy="no-referrer-when-downgrade">
+                        </iframe>
+                    </div>
+                </div>
+
+                <div class="text-center flex flex-col items-center">
+                    <a href="https://maps.app.goo.gl/xxx" target="_blank" class="group relative inline-flex items-center justify-center px-10 py-4 font-sans text-sm tracking-[0.2em] text-white uppercase bg-wedding-dark rounded-full overflow-hidden transition-all duration-300 hover:shadow-[0_10px_20px_rgba(44,62,80,0.3)]">
+                        <span class="absolute w-0 h-0 transition-all duration-500 ease-out bg-wedding-gold rounded-full group-hover:w-full group-hover:h-56"></span>
+                        <span class="relative flex items-center gap-3">
+                            <i class="fas fa-map-location-dot text-lg"></i>
+                            Buka Petunjuk Arah
+                        </span>
+                    </a>
+                    <p class="text-xs text-gray-400 mt-4 font-sans tracking-wide">Klik tombol di atas untuk panduan rute melalui Google Maps</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-white text-gray-400 text-center py-16 border-t border-gray-100">
+        <h2 class="font-script text-4xl mb-4 text-wedding-dark">Nama & Nama</h2>
+        <p class="text-xs tracking-widest uppercase font-sans mb-10">We invite you to celebrate with us</p>
+        <p class="text-[10px]">&copy; 2026 Nama & Nama. All Rights Reserved.</p>
+    </footer>
+</div>
+
+<script>
+    const { createApp, ref, onMounted, onUnmounted } = Vue
+
+    createApp({
+        setup() {
+        
+            const weddingDate = new Date("Dec 20, 2026 08:00:00").getTime();
+            
+            const days = ref(0);
+            const hours = ref(0);
+            const minutes = ref(0);
+            const seconds = ref(0);
+            
+            let timer;
+
+            const updateCountdown = () => {
+                const now = new Date().getTime();
+                const distance = weddingDate - now;
+
+                if (distance > 0) {
+                    days.value = Math.floor(distance / (1000 * 60 * 60 * 24));
+                    hours.value = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    minutes.value = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                    seconds.value = Math.floor((distance % (1000 * 60)) / 1000);
+                } else {
+                    days.value = 0;
+                    hours.value = 0;
+                    minutes.value = 0;
+                    seconds.value = 0;
+                    clearInterval(timer);
+                }
+            };
+
+            onMounted(() => {
+                updateCountdown();
+                timer = setInterval(updateCountdown, 1000);
+            });
+
+            onUnmounted(() => {
+                if(timer) clearInterval(timer);
+            });
+
+            return {
+                days, hours, minutes, seconds
+            }
+        }
+    }).mount('#app')
+</script>
+
+</body>
+</html>
