@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Undangan Pernikahan - Nama & Nama</title>
-    
+    <title>Undangan Pernikahan - Chandra Prawira Difa & Astrina</title>
+    <link rel="icon" type="image/png" href="/flower2.svg">
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     
     <script src="https://cdn.tailwindcss.com"></script>
@@ -39,6 +39,11 @@
     </script>
 
     <style>
+        /* Agar halamannya tidak bisa di-scroll saat overlay aktif */
+        body.no-scroll {
+            overflow: hidden;
+        }
+
         .hero-bg {
             background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1519225421980-715cb0215aed?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
             background-size: cover;
@@ -47,10 +52,11 @@
         }
         
         .glass-panel {
-            background: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.3);
+            background: rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
         }
 
         .fade-in {
@@ -66,38 +72,76 @@
             border-radius: 150px 150px 10px 10px;
             object-fit: cover;
         }
+
+        /* Animasi putar lambat untuk icon disk */
+        @keyframes spin-slow {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        .animate-spin-slow {
+            animation: spin-slow 4s linear infinite;
+        }
+
+        /* Transisi untuk overlay */
+        .fade-leave-active {
+            transition: opacity 1s ease, transform 1s ease;
+        }
+        .fade-leave-to {
+            opacity: 0;
+            transform: translateY(-20px);
+        }
     </style>
 </head>
-<body class="bg-wedding-light text-wedding-text font-sans antialiased selection:bg-wedding-blush selection:text-white">
+<body :class="{ 'no-scroll': !isOpened }" class="bg-wedding-light text-wedding-text font-sans antialiased selection:bg-wedding-blush selection:text-white">
 
 <div id="app">
+    <!-- OVERLAY / SAMPUL UNDANGAN -->
+    <transition name="fade">
+        <div v-if="!isOpened" class="fixed inset-0 z-[100] bg-wedding-dark/95 backdrop-blur-md flex flex-col items-center justify-center text-white p-4">
+            <p class="text-xs md:text-sm tracking-[0.4em] uppercase mb-6 font-sans font-light text-gray-300">The Wedding Of</p>
+            <h2 class="font-script text-6xl md:text-7xl lg:text-8xl mb-6 text-wedding-blush text-center drop-shadow-lg">
+                Chandra & Astrina
+            </h2>
+            <p class="font-serif italic mb-10 text-gray-200">Kepada Yth. Bapak/Ibu/Saudara/i</p>
+            
+            <!-- Tombol Buka Undangan -->
+            <button @click="openInvitation" class="relative group overflow-hidden rounded-full border border-wedding-gold px-8 py-3 text-wedding-gold transition-all duration-300 hover:text-white">
+                <span class="absolute inset-0 bg-wedding-gold w-0 transition-all duration-300 ease-out group-hover:w-full"></span>
+                <span class="relative flex items-center gap-2 font-sans text-sm tracking-widest uppercase font-medium">
+                    <i class="fas fa-envelope-open-text"></i> Buka Undangan
+                </span>
+            </button>
+        </div>
+    </transition>
+
+    <!-- Konten Undangan (Hanya muncul rapi jika sudah dibuka atau berada di background) -->
     <header class="hero-bg min-h-screen flex flex-col justify-center items-center text-white text-center p-4 fade-in">
         <p class="text-xs md:text-sm tracking-[0.4em] uppercase mb-4 font-sans font-light">The Wedding Of</p>
         
         <h1 class="font-script text-7xl md:text-8xl lg:text-9xl mb-4 text-wedding-blush" style="text-shadow: 2px 2px 8px rgba(0,0,0,0.3);">
-            Nama & Nama
+            Chandra Prawira Difa & Astrina
         </h1>
         
-        <p class="font-serif text-lg md:text-xl italic mb-12 font-light">Minggu, 20 Desember 2026</p>
+        <p class="font-serif text-lg md:text-xl italic mb-12 font-light">Minggu, 29 November 2026</p>
       
-        <div class="glass-panel rounded-3xl py-6 px-8 md:px-12 flex gap-6 md:gap-10 font-serif text-center mt-4 shadow-lg">
-            <div>
-                <div class="text-3xl md:text-4xl font-semibold">{{ days }}</div>
-                <div class="text-[10px] md:text-xs uppercase tracking-widest mt-2 font-sans">Hari</div>
+            <div class="glass-panel rounded-3xl py-6 px-8 md:px-12 flex gap-6 md:gap-10 font-serif text-center mt-4 shadow-lg">
+                <div>
+                    <div class="text-3xl md:text-4xl font-semibold">{{ days }}</div>
+                    <div class="text-[10px] md:text-xs uppercase tracking-widest mt-2 font-sans">Hari</div>
+                </div>
+                <div>
+                    <div class="text-3xl md:text-4xl font-semibold">{{ hours }}</div>
+                    <div class="text-[10px] md:text-xs uppercase tracking-widest mt-2 font-sans">Jam</div>
+                </div>
+                <div>
+                    <div class="text-3xl md:text-4xl font-semibold">{{ minutes }}</div>
+                    <div class="text-[10px] md:text-xs uppercase tracking-widest mt-2 font-sans">Menit</div>
+                </div>
+                <div>
+                    <div class="text-3xl md:text-4xl font-semibold">{{ seconds }}</div>
+                    <div class="text-[10px] md:text-xs uppercase tracking-widest mt-2 font-sans">Detik</div>
+                </div>
             </div>
-            <div>
-                <div class="text-3xl md:text-4xl font-semibold">{{ hours }}</div>
-                <div class="text-[10px] md:text-xs uppercase tracking-widest mt-2 font-sans">Jam</div>
-            </div>
-            <div>
-                <div class="text-3xl md:text-4xl font-semibold">{{ minutes }}</div>
-                <div class="text-[10px] md:text-xs uppercase tracking-widest mt-2 font-sans">Menit</div>
-            </div>
-            <div>
-                <div class="text-3xl md:text-4xl font-semibold">{{ seconds }}</div>
-                <div class="text-[10px] md:text-xs uppercase tracking-widest mt-2 font-sans">Detik</div>
-            </div>
-        </div>
     </header>
 
     <section class="py-24 px-6 max-w-3xl mx-auto text-center flex flex-col items-center">
@@ -116,16 +160,15 @@
             <div class="flex flex-col items-center">
 
                 <div class="relative p-2 border-2 border-wedding-gold rounded-t-[160px] rounded-b-2xl mb-12 bg-white">
-                    <img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+                    <img src="/foto/IMG_9679 copy_1.jpg" 
                          alt="Foto Pasangan" 
                          class="w-64 h-80 md:w-80 md:h-[400px] arch-img shadow-xl">
                 </div>
 
                 <div class="grid md:grid-cols-3 gap-8 items-center w-full max-w-3xl">
                     <div class="text-center md:text-right">
-                        <h3 class="font-script text-5xl text-wedding-dark mb-2">Nama</h3>
-                        <p class="font-sans text-sm text-gray-500 font-bold">Nama Putra, S.T.</p>
-                        <p class="font-sans text-xs text-gray-400 mt-2">Putra dari<br>Bapak & Ibu</p>
+                        <h3 class="font-script text-5xl text-wedding-dark mb-2">Chandra Prawira Difa</h3>
+                        <p class="font-sans text-xs text-gray-400 mt-2">Putra dari<br>Bapak Alm Soleh Subroto & Ibu Rinda Nurherinda, S.An</p>
                     </div>
 
                     <div class="text-4xl font-script text-wedding-gold opacity-60 my-4 md:my-0">
@@ -133,9 +176,8 @@
                     </div>
 
                     <div class="text-center md:text-left">
-                        <h3 class="font-script text-5xl text-wedding-dark mb-2">Nama</h3>
-                        <p class="font-sans text-sm text-gray-500 font-bold">Nama Putri, S.I.Kom.</p>
-                        <p class="font-sans text-xs text-gray-400 mt-2">Putri dari<br>Bapak & Ibu</p>
+                        <h3 class="font-script text-5xl text-wedding-dark mb-2">Astrina</h3>
+                        <p class="font-sans text-xs text-gray-400 mt-2">Putri dari<br>Bapak Hadi Hermawan, SH & Ibu Qori Hayati</p>
                     </div>
                 </div>
             </div>
@@ -144,31 +186,7 @@
 
     <section class="py-24 px-4 bg-wedding-light">
         <div class="max-w-4xl mx-auto">
-            <h2 class="font-sans text-xs tracking-[0.3em] uppercase text-gray-400 mb-16 text-center">Rangkaian Acara</h2>
-            
-            <div class="grid md:grid-cols-2 gap-12">
-                <div class="bg-white p-12 rounded-2xl text-center shadow-[0_10px_40px_-15px_rgba(0,0,0,0.05)] border border-gray-50 hover:-translate-y-1 transition-transform duration-300">
-                    <h3 class="font-serif text-2xl mb-2 text-wedding-dark">Akad Nikah</h3>
-                    <div class="w-8 h-[1px] bg-wedding-gold mx-auto mb-6"></div>
-                    <p class="font-sans text-sm text-gray-500 mb-1">Minggu, 20 Desember 2026</p>
-                    <p class="font-serif text-lg text-wedding-gold mb-6">Pukul 08.00 WIB</p>
-                    <div class="font-sans text-sm text-gray-500 leading-relaxed">
-                        <p class="font-semibold text-gray-700">Masjid Al-Akbar</p>
-                        <p>Jl. Pagesangan Raya No.1<br>Surabaya</p>
-                    </div>
-                </div>
-
-                <div class="bg-white p-12 rounded-2xl text-center shadow-[0_10px_40px_-15px_rgba(0,0,0,0.05)] border border-gray-50 hover:-translate-y-1 transition-transform duration-300">
-                    <h3 class="font-serif text-2xl mb-2 text-wedding-dark">Resepsi</h3>
-                    <div class="w-8 h-[1px] bg-wedding-gold mx-auto mb-6"></div>
-                    <p class="font-sans text-sm text-gray-500 mb-1">Minggu, 20 Desember 2026</p>
-                    <p class="font-serif text-lg text-wedding-gold mb-6">Pukul 11.00 - 14.00 WIB</p>
-                    <div class="font-sans text-sm text-gray-500 leading-relaxed">
-                        <p class="font-semibold text-gray-700">Grand Ballroom Hotel Nusantara</p>
-                        <p>Jl. Jenderal Sudirman No.99<br>Surabaya</p>
-                    </div>
-                </div>
-            </div>
+            <h2 class="font-sans text-xs tracking-[0.3em] uppercase text-gray-400 mb-16 text-center">Lokasi</h2>
             
             <!-- Peta Lokasi & Tombol Maps -->
             <div class="mt-16 max-w-3xl mx-auto">
@@ -176,9 +194,8 @@
                 <!-- Tampilan Peta Interaktif (Embed Google Maps) -->
                 <div class="p-2 bg-white rounded-3xl shadow-[0_10px_40px_-15px_rgba(0,0,0,0.1)] border border-gray-100 mb-8 transform hover:-translate-y-1 transition-transform duration-300">
                     <div class="w-full h-64 md:h-[400px] rounded-2xl overflow-hidden relative bg-gray-100">
-                        <!-- Ganti parameter 'src' di bawah ini dengan link embed Google Maps lokasi asli Anda -->
                         <iframe 
-                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3957.348658197793!2d112.71261311477526!3d-7.336040894705574!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dd7ebf272a85eef%3A0x67399882205513ab!2sMasjid%20Nasional%20Al%20Akbar%20Surabaya!5e0!3m2!1sid!2sid!4v1700000000000!5m2!1sid!2sid" 
+                            src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d3962.065329686492!2d108.17077780000001!3d-6.7618889!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zNsKwNDUnNDIuOCJTIDEwOMKwMTAnMTQuOCJF!5e0!3m2!1sid!2sid!4v1793153990591!5m2!1sid!2sid" 
                             width="100%" 
                             height="100%" 
                             style="border:0;" 
@@ -190,7 +207,7 @@
                 </div>
 
                 <div class="text-center flex flex-col items-center">
-                    <a href="https://maps.app.goo.gl/xxx" target="_blank" class="group relative inline-flex items-center justify-center px-10 py-4 font-sans text-sm tracking-[0.2em] text-white uppercase bg-wedding-dark rounded-full overflow-hidden transition-all duration-300 hover:shadow-[0_10px_20px_rgba(44,62,80,0.3)]">
+                    <a href="https://maps.app.goo.gl/SmgSKx4u5Ac9noU16" target="_blank" class="group relative inline-flex items-center justify-center px-10 py-4 font-sans text-sm tracking-[0.2em] text-white uppercase bg-wedding-dark rounded-full overflow-hidden transition-all duration-300 hover:shadow-[0_10px_20px_rgba(44,62,80,0.3)]">
                         <span class="absolute w-0 h-0 transition-all duration-500 ease-out bg-wedding-gold rounded-full group-hover:w-full group-hover:h-56"></span>
                         <span class="relative flex items-center gap-3">
                             <i class="fas fa-map-location-dot text-lg"></i>
@@ -204,10 +221,20 @@
     </section>
 
     <footer class="bg-white text-gray-400 text-center py-16 border-t border-gray-100">
-        <h2 class="font-script text-4xl mb-4 text-wedding-dark">Nama & Nama</h2>
+        <h2 class="font-script text-4xl mb-4 text-wedding-dark">Chandra Prawira Difa & Astrina</h2>
         <p class="text-xs tracking-widest uppercase font-sans mb-10">We invite you to celebrate with us</p>
-        <p class="text-[10px]">&copy; 2026 Nama & Nama. All Rights Reserved.</p>
     </footer>
+
+    <!-- Audio Player -->
+    <audio ref="bgMusic" loop src="/audio/song1.mp3"></audio>
+
+    <!-- Disk Icon Button untuk Play/Pause (Hanya muncul setelah undangan dibuka) -->
+    <transition name="fade">
+        <button v-if="isOpened" @click="toggleMusic" 
+                class="fixed bottom-6 right-6 z-50 bg-wedding-dark text-wedding-gold w-14 h-14 rounded-full shadow-[0_4px_15px_rgba(0,0,0,0.2)] flex items-center justify-center hover:bg-gray-800 transition-colors duration-300">
+            <i class="fas fa-compact-disc text-2xl" :class="{ 'animate-spin-slow': isPlaying }"></i>
+        </button>
+    </transition>
 </div>
 
 <script>
@@ -215,8 +242,7 @@
 
     createApp({
         setup() {
-        
-            const weddingDate = new Date("Dec 20, 2026 08:00:00").getTime();
+            const weddingDate = new Date("Nov 29, 2026 08:00:00").getTime();
             
             const days = ref(0);
             const hours = ref(0);
@@ -224,6 +250,11 @@
             const seconds = ref(0);
             
             let timer;
+
+            // State untuk musik dan overlay
+            const isOpened = ref(false); // Status apakah undangan sudah dibuka
+            const isPlaying = ref(false);
+            const bgMusic = ref(null);
 
             const updateCountdown = () => {
                 const now = new Date().getTime();
@@ -243,17 +274,49 @@
                 }
             };
 
+            // Fungsi ketika tombol "Buka Undangan" di klik
+            const openInvitation = () => {
+                isOpened.value = true;
+                
+                // Mulai mainkan musik karena sudah ada interaksi user
+                if (bgMusic.value) {
+                    bgMusic.value.play().then(() => {
+                        isPlaying.value = true;
+                    }).catch((error) => {
+                        console.error("Audio playback failed:", error);
+                    });
+                }
+                
+                // Menghilangkan class no-scroll dari body agar halaman bisa discroll
+                document.body.classList.remove('no-scroll');
+            };
+
+            const toggleMusic = () => {
+                if (bgMusic.value.paused) {
+                    bgMusic.value.play();
+                    isPlaying.value = true;
+                } else {
+                    bgMusic.value.pause();
+                    isPlaying.value = false;
+                }
+            };
+
             onMounted(() => {
                 updateCountdown();
                 timer = setInterval(updateCountdown, 1000);
+                // Class no-scroll dipasang di body sejak awal agar tidak bisa scroll saat masih di sampul
+                document.body.classList.add('no-scroll');
             });
 
             onUnmounted(() => {
                 if(timer) clearInterval(timer);
+                document.body.classList.remove('no-scroll');
             });
 
             return {
-                days, hours, minutes, seconds
+                days, hours, minutes, seconds, 
+                isPlaying, bgMusic, toggleMusic,
+                isOpened, openInvitation
             }
         }
     }).mount('#app')
