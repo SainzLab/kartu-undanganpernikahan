@@ -39,7 +39,6 @@
     </script>
 
     <style>
-        /* Agar halamannya tidak bisa di-scroll saat overlay aktif */
         body.no-scroll {
             overflow: hidden;
         }
@@ -73,7 +72,6 @@
             object-fit: cover;
         }
 
-        /* Animasi putar lambat untuk icon disk */
         @keyframes spin-slow {
             from { transform: rotate(0deg); }
             to { transform: rotate(360deg); }
@@ -82,7 +80,6 @@
             animation: spin-slow 4s linear infinite;
         }
 
-        /* Transisi untuk overlay */
         .fade-leave-active {
             transition: opacity 1s ease, transform 1s ease;
         }
@@ -104,7 +101,6 @@
             </h2>
             <p class="font-serif italic mb-10 text-gray-200">Kepada Yth. Bapak/Ibu/Saudara/i</p>
             
-            <!-- Tombol Buka Undangan -->
             <button @click="openInvitation" class="relative group overflow-hidden rounded-full border border-wedding-gold px-8 py-3 text-wedding-gold transition-all duration-300 hover:text-white">
                 <span class="absolute inset-0 bg-wedding-gold w-0 transition-all duration-300 ease-out group-hover:w-full"></span>
                 <span class="relative flex items-center gap-2 font-sans text-sm tracking-widest uppercase font-medium">
@@ -114,7 +110,7 @@
         </div>
     </transition>
 
-    <!-- Konten Undangan (Hanya muncul rapi jika sudah dibuka atau berada di background) -->
+    <!-- KONTEN UNDANGAN -->
     <header class="hero-bg min-h-screen flex flex-col justify-center items-center text-white text-center p-4 fade-in">
         <p class="text-xs md:text-sm tracking-[0.4em] uppercase mb-4 font-sans font-light">The Wedding Of</p>
         
@@ -154,27 +150,21 @@
 
     <section class="py-20 px-4 bg-white">
         <div class="max-w-5xl mx-auto text-center">
-            
             <h2 class="font-sans text-xs tracking-[0.3em] uppercase text-gray-400 mb-12">Mempelai</h2>
-            
             <div class="flex flex-col items-center">
-
                 <div class="relative p-2 border-2 border-wedding-gold rounded-t-[160px] rounded-b-2xl mb-12 bg-white">
                     <img src="/foto/IMG_9679 copy_1.jpg" 
                          alt="Foto Pasangan" 
                          class="w-64 h-80 md:w-80 md:h-[400px] arch-img shadow-xl">
                 </div>
-
                 <div class="grid md:grid-cols-3 gap-8 items-center w-full max-w-3xl">
                     <div class="text-center md:text-right">
                         <h3 class="font-script text-5xl text-wedding-dark mb-2">Chandra Prawira Difa</h3>
                         <p class="font-sans text-xs text-gray-400 mt-2">Putra dari<br>Bapak Alm Soleh Subroto & Ibu Rinda Nurherinda, S.An</p>
                     </div>
-
                     <div class="text-4xl font-script text-wedding-gold opacity-60 my-4 md:my-0">
                         &
                     </div>
-
                     <div class="text-center md:text-left">
                         <h3 class="font-script text-5xl text-wedding-dark mb-2">Astrina</h3>
                         <p class="font-sans text-xs text-gray-400 mt-2">Putri dari<br>Bapak Hadi Hermawan, SH & Ibu Qori Hayati</p>
@@ -184,14 +174,42 @@
         </div>
     </section>
 
-    <section class="py-24 px-4 bg-wedding-light">
+ <!-- BAGIAN GALERI OPSI 3: POLAROID TILTED -->
+    <section class="py-24 px-4 bg-wedding-light overflow-hidden">
+        <div class="max-w-5xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="font-sans text-xs tracking-[0.3em] uppercase text-gray-400 mb-2">Our Moments</h2>
+                <p class="font-script text-4xl text-wedding-gold">Bingkai Kenangan</p>
+            </div>
+            
+            <div class="flex flex-wrap justify-center gap-6 md:gap-10">
+                <!-- Foto 1 (Miring ke kiri) -->
+                <div class="bg-white p-3 pb-10 shadow-xl transform -rotate-3 hover:rotate-0 hover:scale-105 transition-all duration-500 w-40 md:w-60 cursor-pointer z-10 hover:z-20">
+                    <img src="/foto/IMG_9679 copy_1.jpg" alt="Galeri 1" class="w-full h-48 md:h-72 object-cover">
+                </div>
+                
+                <!-- Foto 2 (Miring ke kanan, sedikit ke bawah) -->
+                <div class="bg-white p-3 pb-10 shadow-xl transform rotate-6 hover:rotate-0 hover:scale-105 transition-all duration-500 w-40 md:w-60 mt-8 md:mt-16 cursor-pointer z-10 hover:z-20">
+                    <img src="/foto/IMG_9693 copy_1(1).jpg" alt="Galeri 2" class="w-full h-48 md:h-72 object-cover">
+                </div>
+                
+                <!-- Foto 3 (Miring ke kiri, sedikit ke atas) -->
+                <div class="bg-white p-3 pb-10 shadow-xl transform -rotate-6 hover:rotate-0 hover:scale-105 transition-all duration-500 w-40 md:w-60 md:-mt-8 cursor-pointer z-10 hover:z-20">
+                    <img src="/foto/IMG_9707 copy_1.jpg" alt="Galeri 3" class="w-full h-48 md:h-72 object-cover">
+                </div>
+                
+                <!-- Foto 4 (Miring ke kanan) -->
+                <div class="bg-white p-3 pb-10 shadow-xl transform rotate-3 hover:rotate-0 hover:scale-105 transition-all duration-500 w-40 md:w-60 mt-4 md:mt-10 cursor-pointer z-10 hover:z-20">
+                    <img src="/foto/IMG_9725 copy_1.jpg" alt="Galeri 4" class="w-full h-48 md:h-72 object-cover">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-24 px-4 bg-white">
         <div class="max-w-4xl mx-auto">
             <h2 class="font-sans text-xs tracking-[0.3em] uppercase text-gray-400 mb-16 text-center">Lokasi</h2>
-            
-            <!-- Peta Lokasi & Tombol Maps -->
-            <div class="mt-16 max-w-3xl mx-auto">
-                
-                <!-- Tampilan Peta Interaktif (Embed Google Maps) -->
+            <div class="mt-8 max-w-3xl mx-auto">
                 <div class="p-2 bg-white rounded-3xl shadow-[0_10px_40px_-15px_rgba(0,0,0,0.1)] border border-gray-100 mb-8 transform hover:-translate-y-1 transition-transform duration-300">
                     <div class="w-full h-64 md:h-[400px] rounded-2xl overflow-hidden relative bg-gray-100">
                         <iframe 
@@ -220,7 +238,7 @@
         </div>
     </section>
 
-    <footer class="bg-white text-gray-400 text-center py-16 border-t border-gray-100">
+    <footer class="bg-wedding-light text-gray-400 text-center py-16 border-t border-gray-100">
         <h2 class="font-script text-4xl mb-4 text-wedding-dark">Chandra Prawira Difa & Astrina</h2>
         <p class="text-xs tracking-widest uppercase font-sans mb-10">We invite you to celebrate with us</p>
     </footer>
@@ -228,7 +246,7 @@
     <!-- Audio Player -->
     <audio ref="bgMusic" loop src="/audio/song1.mp3"></audio>
 
-    <!-- Disk Icon Button untuk Play/Pause (Hanya muncul setelah undangan dibuka) -->
+    <!-- Disk Icon Button untuk Play/Pause -->
     <transition name="fade">
         <button v-if="isOpened" @click="toggleMusic" 
                 class="fixed bottom-6 right-6 z-50 bg-wedding-dark text-wedding-gold w-14 h-14 rounded-full shadow-[0_4px_15px_rgba(0,0,0,0.2)] flex items-center justify-center hover:bg-gray-800 transition-colors duration-300">
@@ -251,8 +269,7 @@
             
             let timer;
 
-            // State untuk musik dan overlay
-            const isOpened = ref(false); // Status apakah undangan sudah dibuka
+            const isOpened = ref(false);
             const isPlaying = ref(false);
             const bgMusic = ref(null);
 
@@ -274,11 +291,9 @@
                 }
             };
 
-            // Fungsi ketika tombol "Buka Undangan" di klik
             const openInvitation = () => {
                 isOpened.value = true;
                 
-                // Mulai mainkan musik karena sudah ada interaksi user
                 if (bgMusic.value) {
                     bgMusic.value.play().then(() => {
                         isPlaying.value = true;
@@ -287,7 +302,6 @@
                     });
                 }
                 
-                // Menghilangkan class no-scroll dari body agar halaman bisa discroll
                 document.body.classList.remove('no-scroll');
             };
 
@@ -304,7 +318,6 @@
             onMounted(() => {
                 updateCountdown();
                 timer = setInterval(updateCountdown, 1000);
-                // Class no-scroll dipasang di body sejak awal agar tidak bisa scroll saat masih di sampul
                 document.body.classList.add('no-scroll');
             });
 
